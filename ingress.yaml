@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: springboot-ingress
@@ -7,10 +7,12 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: springboot-ingress-k8s.info
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: springboot-svc
-              servicePort: 8080
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: springboot-svc
+            port:
+              number: 8080
