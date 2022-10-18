@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: springboot-ingress
+  annotations:
+    kubernetes.io/ingress.class: ingress-nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: springboot-ingress-k8s.info
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: springboot-svc
+              servicePort: 8080
